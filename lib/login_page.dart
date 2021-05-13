@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_demo_firebase/chat_page.dart';
+import 'package:flutter_demo_firebase/userState.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,6 +17,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    // ユーザー情報を受け取る
+    final UserState userState= Provider.of<UserState>(context);
+
     return Scaffold(
       body: Center(
         child: Container(
@@ -55,9 +60,13 @@ class _LoginPageState extends State<LoginPage> {
                           password: password
                       );
 
+                      // ユーザー情報を更新
+                      userState.setUser(result.user!);
+
+                      // チャット画面に遷移
                       await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return ChatPage(result.user!);
+                            return ChatPage();
                           })
                       );
                     } catch (e) {
@@ -68,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
               ),
-              const SizedBox(height: 8,),
+              const SizedBox(height: 20,),
               Container(
                 width: double.infinity,
                 child: OutlineButton(
@@ -80,9 +89,12 @@ class _LoginPageState extends State<LoginPage> {
                           email: email,
                           password: password
                       );
+
+                      userState.setUser(result.user!);
+
                       await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return ChatPage(result.user!);
+                            return ChatPage();
                           })
                       );
 

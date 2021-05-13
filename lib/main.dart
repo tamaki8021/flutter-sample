@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_demo_firebase/login_page.dart';
+import 'package:flutter_demo_firebase/userState.dart';
+import 'package:provider/provider.dart';
+
 
 Future<void> main() async {
   // firebaseの初期化
@@ -10,15 +13,21 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  // ユーザーの情報を管理するデータ
+  final UserState userState = UserState();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    //子Widgetにデータを渡す
+    return ChangeNotifierProvider<UserState>(
+      create: (context) => UserState(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: LoginPage(),
       ),
-      home: LoginPage(),
     );
   }
 }

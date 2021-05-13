@@ -1,16 +1,21 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_demo_firebase/addPost_page.dart';
 import 'package:flutter_demo_firebase/login_page.dart';
+import 'package:flutter_demo_firebase/userState.dart';
 
 class ChatPage extends StatelessWidget {
   // 引数からユーザー情報を受け取れるようにする
-  ChatPage(this.user);
-  final User user;
+  ChatPage();
 
   @override
   Widget build(BuildContext context) {
+    // ユーザー情報を受け取る
+    final UserState userState = Provider.of<UserState>(context);
+    final User user = userState.user!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('チャット'),
@@ -35,9 +40,10 @@ class ChatPage extends StatelessWidget {
             child: Text('ログイン情報:${user.email}'),
           ),
           Expanded(
-              child: FutureBuilder<QuerySnapshot>(
+            // Stream 非同期処理の結果を元にWidgetを作る
+              child: StreamBuilder<QuerySnapshot>(
                 // 投稿メッセージ一覧の取得
-                future: FirebaseFirestore.instance.collection('posts').orderBy('date').get(),
+                stream: FirebaseFirestore.instance.collection('posts').orderBy('date').snapshots(),
                 builder: (context, snapshot) {
                   // データが取得できた場合
                   if (snapshot.hasData) {
@@ -71,7 +77,7 @@ class ChatPage extends StatelessWidget {
         onPressed: () async {
           await Navigator.of(context).push(
               MaterialPageRoute(builder: (context) {
-                return AddPostPage(user);
+                return AddPostPage();
               })
           );
         },
