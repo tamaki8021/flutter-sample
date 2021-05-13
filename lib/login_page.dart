@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return ChatPage(result.user);
+                            return ChatPage(result.user!);
                           })
                       );
                     } catch (e) {
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                       await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return ChatPage(result.user);
+                            return ChatPage(result.user!);
                           })
                       );
 

@@ -9,8 +9,6 @@ class AddPostPage extends StatefulWidget {
 
   @override
   _AddPostPageState createState() => _AddPostPageState();
-
-
 }
 
 class _AddPostPageState extends State<AddPostPage> {
@@ -48,14 +46,7 @@ class _AddPostPageState extends State<AddPostPage> {
                     final date = DateTime.now().toLocal().toIso8601String();
                     final email = widget.user.email; //AddPostPageのデータを参照
 
-                    await FirebaseFirestore.instance
-                        .collection('posts')
-                        .doc()
-                        .set({
-                      'text': messageText,
-                      'email': email,
-                      'date': date,
-                    });
+                    await FirebaseFirestore.instance.collection('posts').doc().set({'text': messageText, 'email': email, 'date': date,});
                     Navigator.of(context).pop();
                   },
                 ),

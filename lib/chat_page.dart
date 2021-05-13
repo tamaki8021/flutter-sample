@@ -41,7 +41,7 @@ class ChatPage extends StatelessWidget {
                 builder: (context, snapshot) {
                   // データが取得できた場合
                   if (snapshot.hasData) {
-                    final List<DocumentSnapshot> documents = snapshot.data.docs;
+                    final List<DocumentSnapshot> documents = snapshot.data!.docs;
                     return ListView(
                       children: documents.map((document) {
                         return Card(
