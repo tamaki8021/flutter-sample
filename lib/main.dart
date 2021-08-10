@@ -4,8 +4,8 @@ import 'package:flutter_demo_firebase/login_page.dart';
 import 'package:flutter_demo_firebase/userState.dart';
 import 'package:provider/provider.dart';
 
-
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // firebaseの初期化
   await Firebase.initializeApp();
 
@@ -31,5 +31,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
