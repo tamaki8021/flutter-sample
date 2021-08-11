@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AddPostPage extends StatefulWidget {
-  AddPostPage();
+class AddRoomPage extends StatefulWidget {
+  AddRoomPage();
 
   @override
   _AddPostPageState createState() => _AddPostPageState();
 }
 
-class _AddPostPageState extends State<AddPostPage> {
+class _AddPostPageState extends State<AddRoomPage> {
   String roomName = '';
 
   @override
