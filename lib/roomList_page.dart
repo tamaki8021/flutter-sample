@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_demo_firebase/chat_page_new.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_demo_firebase/addPost_page.dart';
+import 'package:flutter_demo_firebase/addRoom_page.dart';
 import 'package:flutter_demo_firebase/login_page.dart';
 import 'package:flutter_demo_firebase/userState.dart';
+import 'package:flutter_demo_firebase/chat_page.dart';
 
-class ChatPage extends StatelessWidget {
+class RoomListPage extends StatelessWidget {
   // 引数からユーザー情報を受け取れるようにする
-  ChatPage();
+  RoomListPage();
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +61,7 @@ class ChatPage extends StatelessWidget {
                             await Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) {
-                                  // return AddPostPage();
-                                  return ChatPageNew(document['name']);
+                                  return ChatPage(document['name']);
                                 },
                               ),
                             );
@@ -93,7 +92,7 @@ class ChatPage extends StatelessWidget {
           await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) {
             // return AddPostPage();
-            return AddPostPage();
+            return AddRoomPage();
           }));
         },
       ),
