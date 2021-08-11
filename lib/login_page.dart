@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_demo_firebase/chat_page.dart';
+import 'package:flutter_demo_firebase/roomList_page.dart';
 import 'package:flutter_demo_firebase/userState.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +10,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   String infoText = '';
   String email = '';
   String password = '';
@@ -18,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     // ユーザー情報を受け取る
-    final UserState userState= Provider.of<UserState>(context);
+    final UserState userState = Provider.of<UserState>(context);
 
     return Scaffold(
       body: Center(
@@ -56,9 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                     try {
                       final FirebaseAuth auth = FirebaseAuth.instance;
                       final result = await auth.createUserWithEmailAndPassword(
-                          email: email,
-                          password: password
-                      );
+                          email: email, password: password);
 
                       // ユーザー情報を更新
                       userState.setUser(result.user!);
@@ -66,9 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                       // チャット画面に遷移
                       await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return ChatPage();
-                          })
-                      );
+                        return RoomListPage();
+                      }));
                     } catch (e) {
                       setState(() {
                         infoText = "登録に失敗しました: ${e.toString()}";
@@ -77,27 +73,25 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Container(
                 width: double.infinity,
-                child: OutlineButton(
+                child: ElevatedButton(
                   child: Text('ログイン'),
                   onPressed: () async {
                     try {
                       final FirebaseAuth auth = FirebaseAuth.instance;
                       final result = await auth.signInWithEmailAndPassword(
-                          email: email,
-                          password: password
-                      );
+                          email: email, password: password);
 
                       userState.setUser(result.user!);
 
                       await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return ChatPage();
-                          })
-                      );
-
+                        return RoomListPage();
+                      }));
                     } catch (e) {
                       setState(() {
                         infoText = "ログインに失敗しました:${e.toString()}";
@@ -112,5 +106,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
 }
