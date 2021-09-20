@@ -38,6 +38,26 @@ class RoomListPage extends StatelessWidget {
             padding: EdgeInsets.all(8),
             child: Text('ログイン情報:${user.email}'),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              final data = {
+                "uid": user.uid,
+                "createdAt": Timestamp.now(),
+              };
+              await FirebaseFirestore.instance
+                  .collection('delete_users')
+                  .add(data)
+                  .then((value) async => {
+                        await FirebaseAuth.instance.signOut(),
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) {
+                          return LoginPage();
+                        }))
+                      })
+                  .catchError((e) => print("Failed to add user: $e"));
+            },
+            child: Text('退会する'),
+          ),
           Expanded(
               // Stream 非同期処理の結果を元にWidgetを作る
               child: StreamBuilder<QuerySnapshot>(

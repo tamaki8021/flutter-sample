@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_demo_firebase/roomList_page.dart';
@@ -59,6 +60,16 @@ class _LoginPageState extends State<LoginPage> {
 
                       // ユーザー情報を更新
                       userState.setUser(result.user!);
+
+                      final uid = userState.user!.uid;
+                      await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(uid)
+                          .set({
+                        'uid': uid,
+                        'email': email,
+                        'password': password,
+                      });
 
                       // チャット画面に遷移
                       await Navigator.of(context).pushReplacement(
