@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_demo_firebase/input_text_history_page.dart';
+import 'package:flutter_demo_firebase/search_bar.dart';
+import 'package:flutter_demo_firebase/typeahead_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_demo_firebase/addRoom_page.dart';
 import 'package:flutter_demo_firebase/login_page.dart';
@@ -22,14 +25,15 @@ class RoomListPage extends StatelessWidget {
         title: Text('チャット'),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.logout),
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                await Navigator.of(context)
-                    .pushReplacement(MaterialPageRoute(builder: (context) {
-                  return LoginPage();
-                }));
-              })
+            icon: Icon(Icons.logout),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              await Navigator.of(context)
+                  .pushReplacement(MaterialPageRoute(builder: (context) {
+                return LoginPage();
+              }));
+            },
+          )
         ],
       ),
       body: Column(
@@ -57,6 +61,42 @@ class RoomListPage extends StatelessWidget {
                   .catchError((e) => print("Failed to add user: $e"));
             },
             child: Text('退会する'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return InputTextHistoryPage();
+                  },
+                ),
+              );
+            },
+            child: Text('ページ遷移1'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return TypeaheadPage();
+                  },
+                ),
+              );
+            },
+            child: Text('ページ遷移2'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SearchBarHintExample();
+                  },
+                ),
+              );
+            },
+            child: Text('ページ遷移3'),
           ),
           Expanded(
               // Stream 非同期処理の結果を元にWidgetを作る
