@@ -13,31 +13,33 @@ class _SearchBarHintExampleState extends State<SearchBarHintExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 32,
-                ),
-                SearchBarWithHint(),
-                const SizedBox(
-                  height: 64,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Theme.of(context).primaryColor),
-                        borderRadius: BorderRadius.circular(32)),
-                    primary: Theme.of(context).primaryColor,
-                  ),
-                  child: Text('Remove Focus'),
-                  onPressed: () {
-                    FocusScope.of(context).unfocus();
-                  },
-                )
-              ],
-            ),),);
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 32,
+            ),
+            SearchBarWithHint(),
+            const SizedBox(
+              height: 64,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Theme.of(context).primaryColor),
+                    borderRadius: BorderRadius.circular(32)),
+                primary: Theme.of(context).primaryColor,
+              ),
+              child: Text('Remove Focus'),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
