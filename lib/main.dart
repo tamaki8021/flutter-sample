@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_demo_firebase/firebase_options.dart';
 import 'package:flutter_demo_firebase/roomList_page.dart';
 import 'package:flutter_demo_firebase/login_page.dart';
 import 'package:flutter_demo_firebase/userState.dart';
@@ -9,7 +10,9 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // firebaseの初期化
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(MyApp());
 }
