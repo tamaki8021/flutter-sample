@@ -19,7 +19,7 @@ run:
 
 .PHONY: run-dev
 run-dev:
-	fvm run --debug
+	fvm flutter run --debug
 
 # code generate
 .PHONY: build_runner
