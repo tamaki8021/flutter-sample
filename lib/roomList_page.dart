@@ -4,21 +4,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_demo_firebase/input_text_history_page.dart';
 import 'package:flutter_demo_firebase/search_bar.dart';
 import 'package:flutter_demo_firebase/typeahead_page.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:flutter_demo_firebase/addRoom_page.dart';
-import 'package:flutter_demo_firebase/login_page.dart';
-import 'package:flutter_demo_firebase/userState.dart';
 import 'package:flutter_demo_firebase/chat_page.dart';
 
-class RoomListPage extends StatelessWidget {
-  // 引数からユーザー情報を受け取れるようにする
-  RoomListPage();
+class RoomListPage extends HookWidget {
+  const RoomListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // ユーザー情報を受け取る
-    final UserState userState = Provider.of<UserState>(context);
-    final User user = userState.user!;
+    final user = useState<User?>(null);
+
+    useEffect(() {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      user.value = currentUser;
+      return null;
+    }, []);
 
     return Scaffold(
       appBar: AppBar(
@@ -28,9 +30,10 @@ class RoomListPage extends StatelessWidget {
             icon: Icon(Icons.logout),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
+              await FlutterFireUIAuth.signOut(context: context);
               await Navigator.of(context)
                   .pushReplacement(MaterialPageRoute(builder: (context) {
-                return LoginPage();
+                return SignInScreen();
               }));
             },
           )
@@ -40,12 +43,12 @@ class RoomListPage extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.all(8),
-            child: Text('ログイン情報:${user.email}'),
+            child: Text('ログイン情報:${user.value!.email}'),
           ),
           ElevatedButton(
             onPressed: () async {
               final data = {
-                "uid": user.uid,
+                "uid": user.value!.uid,
                 "createdAt": Timestamp.now(),
               };
               await FirebaseFirestore.instance
@@ -55,7 +58,7 @@ class RoomListPage extends StatelessWidget {
                         await FirebaseAuth.instance.signOut(),
                         Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) {
-                          return LoginPage();
+                          return SignInScreen();
                         }))
                       })
                   .catchError((e) => print("Failed to add user: $e"));

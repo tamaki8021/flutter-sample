@@ -1,9 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_firebase/roomList_page.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:flutter/cupertino.dart';
 
 class TypeaheadPage extends StatefulWidget {
   const TypeaheadPage({Key? key}) : super(key: key);

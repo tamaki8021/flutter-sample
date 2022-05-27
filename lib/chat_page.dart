@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_demo_firebase/userState.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
-
-import 'login_page.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage(this.name, {Key? key}) : super(key: key);
@@ -72,7 +71,7 @@ class _ChatPageState extends State<ChatPage> {
     final index = _messages.indexWhere((element) => element.id == message.id);
     final updatedMessage = _messages[index].copyWith(previewData: previewData);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         _messages[index] = updatedMessage;
       });
@@ -96,7 +95,7 @@ class _ChatPageState extends State<ChatPage> {
                 await FirebaseAuth.instance.signOut();
                 await Navigator.of(context)
                     .pushReplacement(MaterialPageRoute(builder: (context) {
-                  return LoginPage();
+                  return SignInScreen();
                 }));
               })
         ],

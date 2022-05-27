@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:input_history_text_field/input_history_text_field.dart';
 
 class InputTextHistoryPage extends StatefulWidget {
   const InputTextHistoryPage({Key? key}) : super(key: key);
@@ -22,20 +21,20 @@ class _InputTextHistoryPageState extends State<InputTextHistoryPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(message),
-            InputHistoryTextField(
-              historyKey: "01",
-              // lockItems: ['現在地', '大阪駅', 'React'],
-              listStyle: ListStyle.Badge,
-              showHistoryIcon: false,
-              backgroundColor: Colors.lightBlue,
-              textColor: Colors.white,
-              deleteIconColor: Colors.white,
-              onChanged: (value) {
-                setState(() {
-                  message = value;
-                });
-              },
-            ),
+            // InputHistoryTextField(
+            //   historyKey: "01",
+            //   // lockItems: ['現在地', '大阪駅', 'React'],
+            //   listStyle: ListStyle.Badge,
+            //   showHistoryIcon: false,
+            //   backgroundColor: Colors.lightBlue,
+            //   textColor: Colors.white,
+            //   deleteIconColor: Colors.white,
+            //   onChanged: (value) {
+            //     setState(() {
+            //       message = value;
+            //     });
+            //   },
+            // ),
             const SizedBox(
               height: 10,
             ),

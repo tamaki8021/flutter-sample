@@ -19,13 +19,13 @@ dependencies:
   firebase_core: ^1.17.0
   cloud_firestore: ^3.1.15
   firebase_auth: ^3.3.18
-  provider: ^5.0.0
+  provider: ^6.0.3
   flutter_chat_ui: ^1.1.9
   uuid: ^3.0.4
-  input_history_text_field: ^0.1.0
-  flutter_typeahead: ^3.2.3
+  flutter_typeahead: ^4.0.0
   flutterfire_ui: ^0.4.1+1
   flutter_facebook_auth: ^4.3.0
+  flutter_hooks: ^0.18.4
 
 dev_dependencies:
   flutter_test:
