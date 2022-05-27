@@ -23,7 +23,7 @@ dependencies:
   flutter_chat_ui: ^1.1.9
   uuid: ^3.0.4
   flutter_typeahead: ^4.0.0
-  flutterfire_ui: ^0.4.1+1
+  flutterfire_ui: ^0.4.1+2
   flutter_facebook_auth: ^4.3.0
   flutter_hooks: ^0.18.4
 
