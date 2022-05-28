@@ -33,3 +33,13 @@ analyze:
 .PHONY: format
 format:
 	fvm flutter format .
+
+.PHONY: pod-install
+pod-install:
+	@cd ios && \
+	arch -x86_64 pod install --repo-update
+
+# firebaseの構成ファイルを最新の状態にする
+.PHONY: firebase
+firebase:
+	flutterfire configure
